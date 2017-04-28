@@ -42,16 +42,39 @@ int min3(int a,int b,int c) {
         else
             return b ;
 }
+int rand_int(int min,int max) {
+    /* Stupid function that produces number in [min,max] */
+    int k = rand();
+    while(k < min || k > max) {
+        k = rand() ;
+    }
+    return k ;
+
+}
 void get_trace(struct point *t,struct point p1,struct point p2,struct point p3) {
     /* Returns value within triangle */
     int l12 ,l23 ,l13 ;
-    l12 = (p1.y - p2.y) / (p2.x - p2.y) ;
-    l23 = (p2.y - p3.y) / (p2.x - p3.y) ;
-    l13 = (p1.y - p3.y) / (p1.x - p3.y) ;
+    int b12 ,b23 ,b13 ;
+
+    l12 = (p1.y - p2.y) / (p2.x - p2.x) ;
+    l23 = (p2.y - p3.y) / (p2.x - p3.x) ;
+    l13 = (p1.y - p3.y) / (p1.x - p3.x) ;
+
+    b12 = p1.y - (l12 * p1.x) ;
+    b23 = p2.y - (l23 * p2.x) ;
+    b13 = p3.y - (l13 * p3.y) ;
 
     if (!l12) {
-        x = rand_int(min_2(p1.y,p2.y),max_2(p1.y,p2.y));
-        y = rand_int(min_2(b12,)
+        t->x = rand_int(min_2(p1.y,p2.y),max_2(p1.y,p2.y));
+        t->y = rand_int(min_2(l23 * t->x + b23,l13 * t->x + b13),max_2(l23 * t->x + b23,l13 * t->x + b13));
+    }
+    if (!l23) {
+        t->x = rand_int(min_2(p2.y,p3.y),max_2(p2.y,p3.y));
+        t->y = rand_int(min_2(l12 * t->x + b12,l13 * t->x + b13),max_2(l12 * t->x + b12,l13 * t->x + b13));
+    }
+    if (!l13) {
+        t->x = rand_int(min_2(p1.y,p3.y),max_2(p1.y,p3.y));
+        t->y = rand_int(min_2(l23 * t->x + b23,l12 * t->x + b12),max_2(l23 * t->x + b23,l12 * t->x + b12));
     }
 
 }
@@ -77,6 +100,7 @@ int main(void) {
     center.x = getmaxy() / 2 ;
     center.y = getmaxy() / 2 ;
 
+    struct point start ;
     p1.x = center.x ;
     p1.y = center.y + OFFSET ;
 
@@ -87,11 +111,12 @@ int main(void) {
     p3.y = center.y - OFFSET ;
 
     /* Print triangle */
-    putpixel(center.x,center.y,GREEN);
+//    putpixel(center.x,center.y,GREEN);
     putpixel(p1.x,p1.y,RED);
     putpixel(p2.x,p2.y,RED);
     putpixel(p3.x,p3.y,RED);
 
+    get_trace(&start,p1,p2,p3);
     //line(p1.x,p1.y,p2.x,p2.y);
     //line(p1.x,p1.y,p3.x,p3.y);
     //line(p2.x,p2.y,p3.x,p3.y);
@@ -100,15 +125,15 @@ int main(void) {
     for (i = 0; i < MAX_LOOPS; i++) {
         k = get_rand_interval(3) ;
         if (k == 0) {
-            get_middle(&center,p1);
+            get_middle(&start,p1);
         }
         if (k == 1) {
-            get_middle(&center,p2);
+            get_middle(&start,p2);
         }
         if (k == 2) {
-            get_middle(&center,p3);
+            get_middle(&start,p3);
         }
-        putpixel(center.x,center.y,BLUE);
+        putpixel(start.x,start.y,BLUE);
         sleep(1);
     }
 
