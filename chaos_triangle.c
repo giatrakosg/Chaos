@@ -42,7 +42,8 @@ int min3(int a,int b,int c) {
         else
             return b ;
 }
-int rand_int(int min,int max) {
+
+int rand_interval(int min,int max) {
     /* Stupid function that produces number in [min,max] */
     int k = rand();
     while(k < min || k > max) {
@@ -51,20 +52,38 @@ int rand_int(int min,int max) {
     return k ;
 
 }
+int rand_int(int min,int max)
+{
+    int r;
+    const int range = 1 + max - min;
+    const int buckets = RAND_MAX / range;
+    const  int limit = buckets * range;
+
+    /* Create equal size buckets all in a row, then fire randomly towards
+     * the buckets until you land in one of them. All buckets are equally
+     * likely. If you land off the end of the line of buckets, try again. */
+    do
+    {
+        r = rand();
+    } while (r >= limit);
+
+    return min + (r / buckets);
+}
+
 void get_trace(struct point *t,struct point p1,struct point p2,struct point p3) {
     /* Returns value within triangle */
-    int l12 ,l23 ,l13 ;
+    double l12 ,l23 ,l13 ;
     int b12 ,b23 ,b13 ;
 
-    l12 = (p1.y - p2.y) / (p2.x - p2.x) ;
-    l23 = (p2.y - p3.y) / (p2.x - p3.x) ;
-    l13 = (p1.y - p3.y) / (p1.x - p3.x) ;
+    l12 = ((double) (p1.y - p2.y)) / (p1.x - p2.x) ;
+    l23 = ((double) (p2.y - p3.y)) / (p2.x - p3.x) ;
+    l13 = ((double) (p1.y - p3.y)) / (p1.x - p3.x) ;
 
     b12 = p1.y - (l12 * p1.x) ;
     b23 = p2.y - (l23 * p2.x) ;
-    b13 = p3.y - (l13 * p3.y) ;
+    b13 = p3.y - (l13 * p3.x) ;
 
-    if (!l12) {
+/*    if (!l12) {
         t->x = rand_int(min_2(p1.y,p2.y),max_2(p1.y,p2.y));
         t->y = rand_int(min_2(l23 * t->x + b23,l13 * t->x + b13),max_2(l23 * t->x + b23,l13 * t->x + b13));
     }
@@ -76,6 +95,10 @@ void get_trace(struct point *t,struct point p1,struct point p2,struct point p3) 
         t->x = rand_int(min_2(p1.y,p3.y),max_2(p1.y,p3.y));
         t->y = rand_int(min_2(l23 * t->x + b23,l12 * t->x + b12),max_2(l23 * t->x + b23,l12 * t->x + b12));
     }
+*/
+    t->x = rand_int(min_2(p2.x,p3.x),max_2(p2.x,p3.x));
+    int k = rand_int(min_2(p1.x,p3.x),max_2(p1.x,p3.x));
+    t->y = l13 * k + b13;
 
 }
 int get_rand_interval(int max) { /* creates random in [0 ,max) interval */
@@ -117,6 +140,9 @@ int main(void) {
     putpixel(p3.x,p3.y,RED);
 
     get_trace(&start,p1,p2,p3);
+    putpixel(start.x,start.y,GREEN);
+    line(p1.x,p1.y,start.x,start.y);
+    sleep(3);
     //line(p1.x,p1.y,p2.x,p2.y);
     //line(p1.x,p1.y,p3.x,p3.y);
     //line(p2.x,p2.y,p3.x,p3.y);
@@ -134,7 +160,7 @@ int main(void) {
             get_middle(&start,p3);
         }
         putpixel(start.x,start.y,BLUE);
-        sleep(1);
+        //sleep(1);
     }
 
     getchar();
