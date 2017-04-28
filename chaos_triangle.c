@@ -1,0 +1,119 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <graphics.h>
+#include <unistd.h>
+
+#define MAX_LOOPS 30000
+#define OFFSET 200
+struct point {
+    int x ;
+    int y ;
+};
+int max_2(int a ,int b ) {
+    if (a > b) {
+        return a ;
+    }
+    return b ;
+}
+int min_2(int a ,int b ) {
+    if (a < b) {
+        return a ;
+    }
+    return b ;
+}
+void get_middle(struct point *t,struct point a) {
+    t->x = (max_2(t->x,a.x) + min_2(t->x,a.x)) / 2 ;
+    t->y = (max_2(t->y,a.y) + min_2(t->y,a.y)) / 2 ;
+
+}
+int min3(int a,int b,int c) {
+    if (a < b) {
+        if (a < c) {
+            return a ;
+        }
+        if (a > c) {
+            return c ;
+        }
+    }
+    else
+        if (b > c) {
+            return c ;
+        }
+        else
+            return b ;
+}
+void get_trace(struct point *t,struct point p1,struct point p2,struct point p3) {
+    /* Returns value within triangle */
+    int l12 ,l23 ,l13 ;
+    l12 = (p1.y - p2.y) / (p2.x - p2.y) ;
+    l23 = (p2.y - p3.y) / (p2.x - p3.y) ;
+    l13 = (p1.y - p3.y) / (p1.x - p3.y) ;
+
+    if (!l12) {
+        x = rand_int(min_2(p1.y,p2.y),max_2(p1.y,p2.y));
+        y = rand_int(min_2(b12,)
+    }
+
+}
+int get_rand_interval(int max) { /* creates random in [0 ,max) interval */
+    /* Cut the space from 0 to 1 to max equal-parts and generate random number
+       from 0 to 1 ,choose the number that it ends up in */
+    double k = rand() / ((double) RAND_MAX) ,i ;
+    for (i = 1.0; i <= max; i++) {
+        if ((((double) i - 1) / max < k) && (k < ((double) (i )) / max)) {
+            return ((int) i - 1) ;
+        }
+    }
+}
+
+int main(void) {
+    srand(time(NULL));
+    int gd = DETECT,gm;
+    int x ,y ,k ;
+    int i ;
+    struct point p1 , p2 ,p3 ,trace;
+    struct point center ;
+    initgraph(&gd, &gm, "");
+    center.x = getmaxy() / 2 ;
+    center.y = getmaxy() / 2 ;
+
+    p1.x = center.x ;
+    p1.y = center.y + OFFSET ;
+
+    p2.x = center.x - OFFSET ;
+    p2.y = center.y - OFFSET ;
+
+    p3.x = center.x + OFFSET ;
+    p3.y = center.y - OFFSET ;
+
+    /* Print triangle */
+    putpixel(center.x,center.y,GREEN);
+    putpixel(p1.x,p1.y,RED);
+    putpixel(p2.x,p2.y,RED);
+    putpixel(p3.x,p3.y,RED);
+
+    //line(p1.x,p1.y,p2.x,p2.y);
+    //line(p1.x,p1.y,p3.x,p3.y);
+    //line(p2.x,p2.y,p3.x,p3.y);
+
+
+    for (i = 0; i < MAX_LOOPS; i++) {
+        k = get_rand_interval(3) ;
+        if (k == 0) {
+            get_middle(&center,p1);
+        }
+        if (k == 1) {
+            get_middle(&center,p2);
+        }
+        if (k == 2) {
+            get_middle(&center,p3);
+        }
+        putpixel(center.x,center.y,BLUE);
+        sleep(1);
+    }
+
+    getchar();
+    closegraph();
+
+    return 0;
+}
