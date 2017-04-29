@@ -2,73 +2,19 @@
 #include <stdlib.h>
 #include <graphics.h>
 #include <unistd.h>
-
+#include "utils.h"
 #define MAX_LOOPS 30000
 #define OFFSET 200
 struct point {
     int x ;
     int y ;
 };
-int max_2(int a ,int b ) {
-    if (a > b) {
-        return a ;
-    }
-    return b ;
-}
-int min_2(int a ,int b ) {
-    if (a < b) {
-        return a ;
-    }
-    return b ;
-}
 void get_middle(struct point *t,struct point a) {
     t->x = (max_2(t->x,a.x) + min_2(t->x,a.x)) / 2 ;
     t->y = (max_2(t->y,a.y) + min_2(t->y,a.y)) / 2 ;
 
 }
-int min3(int a,int b,int c) {
-    if (a < b) {
-        if (a < c) {
-            return a ;
-        }
-        if (a > c) {
-            return c ;
-        }
-    }
-    else
-        if (b > c) {
-            return c ;
-        }
-        else
-            return b ;
-}
 
-int rand_interval(int min,int max) {
-    /* Stupid function that produces number in [min,max] */
-    int k = rand();
-    while(k < min || k > max) {
-        k = rand() ;
-    }
-    return k ;
-
-}
-int rand_int(int min,int max)
-{
-    int r;
-    const int range = 1 + max - min;
-    const int buckets = RAND_MAX / range;
-    const  int limit = buckets * range;
-
-    /* Create equal size buckets all in a row, then fire randomly towards
-     * the buckets until you land in one of them. All buckets are equally
-     * likely. If you land off the end of the line of buckets, try again. */
-    do
-    {
-        r = rand();
-    } while (r >= limit);
-
-    return min + (r / buckets);
-}
 
 void get_trace(struct point *t,struct point p1,struct point p2,struct point p3) {
     /* Returns value within triangle */
