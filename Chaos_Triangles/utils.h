@@ -1,9 +1,10 @@
 #ifndef __UTILS__
 #define __UTILS__
 
-int max_2(int a ,int b );
-int min_2(int a ,int b );
-int min3(int a,int b,int c);
-int rand_int(int min,int max);
+int max_2(int ,int );
+int min_2(int ,int );
+int min3(int ,int ,int );
+int rand_int(int ,int );
+void get_middle(struct point *,struct point );
 
 #endif

@@ -47,3 +47,8 @@ int rand_int(int min,int max)
 
     return min + (r / buckets);
 }
+void get_middle(struct point *t,struct point a) {
+    t->x = (max_2(t->x,a.x) + min_2(t->x,a.x)) / 2 ;
+    t->y = (max_2(t->y,a.y) + min_2(t->y,a.y)) / 2 ;
+
+}
