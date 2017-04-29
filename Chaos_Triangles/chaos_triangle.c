@@ -24,6 +24,7 @@ void get_trace(struct point *t,struct point p1,struct point p2,struct point p3) 
     struct line y13 ;
     struct line y23 ;
 
+    
 
 }
 int get_rand_interval(int max) { /* creates random in [0 ,max) interval */

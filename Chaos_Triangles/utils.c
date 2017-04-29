@@ -52,3 +52,9 @@ void get_middle(struct point *t,struct point a) {
     t->y = (max_2(t->y,a.y) + min_2(t->y,a.y)) / 2 ;
 
 }
+void get_slope(struct line *y,struct point a,struct point b) {
+        y->l = ((double) a.y - b.y) / a.x - b.x ;
+}
+void get_yintercept(struct line *y,struct point a) {
+    y->b = a.y - (y->l * a.x) ;
+}
