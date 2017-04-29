@@ -1,6 +1,17 @@
 #ifndef __UTILS__
 #define __UTILS__
 
+struct point {
+    int x ;
+    int y ;
+};
+
+struct line {
+    double l ;
+    int b ;
+};
+
+
 int max_2(int ,int );
 int min_2(int ,int );
 int min3(int ,int ,int );

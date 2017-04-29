@@ -6,15 +6,6 @@
 #define MAX_LOOPS 30000
 #define OFFSET 200
 
-struct point {
-    int x ;
-    int y ;
-};
-
-struct line {
-    double l ;
-    int b ;
-};
 
 
 
@@ -24,7 +15,29 @@ void get_trace(struct point *t,struct point p1,struct point p2,struct point p3) 
     struct line y13 ;
     struct line y23 ;
 
-    
+    get_slope(&y12,p1,p2);
+    get_slope(&y13,p1,p3);
+    get_slope(&y23,p2,p3);
+
+    get_yintercept(&y12,p1);
+    get_yintercept(&y13,p3);
+    get_yintercept(&y23,p2);
+
+    /* Choose a random point in y12 and a random point in y23 */
+    /* Create line between them */
+    /* Choose random x between the 2 points */
+    /* Calculate y of x in the line above */
+    /* Return the values */
+
+    struct point r1 ;
+    struct point r2 ;
+
+    r1.x = rand_int(p1.x,p2.x);
+    r1.y = (y12.l * r1.x) + y12.b ;
+
+    r2.x = rand_int(p2.x,p3.x);
+    r2.y = (y23.l * r2.x) + y23.b ;
+
 
 }
 int get_rand_interval(int max) { /* creates random in [0 ,max) interval */
