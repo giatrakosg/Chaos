@@ -38,6 +38,12 @@ void get_trace(struct point *t,struct point p1,struct point p2,struct point p3) 
     r2.x = rand_int(p2.x,p3.x);
     r2.y = (y23.l * r2.x) + y23.b ;
 
+    struct line yr ;
+    get_slope(&yr,r1,r2);
+    get_yintercept(&yr,r1);
+
+    t->x = rand_int(r1.x,r2.x);
+    t->y = (yr.l * t->x) + yr.b ;
 
 }
 int get_rand_interval(int max) { /* creates random in [0 ,max) interval */
