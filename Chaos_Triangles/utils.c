@@ -48,8 +48,8 @@ int rand_int(int min,int max)
     return min + (r / buckets);
 }
 void get_middle(struct point *t,struct point a) {
-    t->x = (max_2(t->x,a.x) + min_2(t->x,a.x)) / 2 ;
-    t->y = (max_2(t->y,a.y) + min_2(t->y,a.y)) / 2 ;
+    t->x = (a.x + t->x) / 2 ;
+    t->y = (a.y + t->y) / 2 ;
 
 }
 void get_slope(struct line *y,struct point a,struct point b) {
