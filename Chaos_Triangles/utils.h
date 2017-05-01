@@ -7,7 +7,7 @@ struct point {
 };
 
 struct line {
-    double l ;
+    int l ;
     int b ;
 };
 
@@ -17,7 +17,8 @@ int min_2(int ,int );
 int min3(int ,int ,int );
 int rand_int(int ,int );
 void get_middle(struct point *,struct point );
-void get_yintercept(struct line *y,struct point a) ;
-void get_slope(struct line *y,struct point a,struct point b) ;
+void get_yintercept(struct line *,struct point ) ;
+void get_slope(struct line *,struct point ,struct point ) ;
+void get_trace(struct point *,struct point ,struct point ,struct point );
 
 #endif
