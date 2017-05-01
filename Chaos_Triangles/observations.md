@@ -28,5 +28,8 @@ You can choose to randomly select the starting points by running the following c
 
 where SEED : is the seed the random function will use 
 
-
+ ## Observations
+ 
+ After running the game for 30,000 iterations the [sierpinski triangle](https://en.wikipedia.org/wiki/Sierpinski_triangle) is created in the default triangle.
+ As well  as for random starting triangles
  
