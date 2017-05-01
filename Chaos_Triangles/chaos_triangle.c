@@ -7,8 +7,7 @@
 #define OFFSET 200
 
 
-int main(void) {
-    srand(time(NULL));
+int main(int argc ,char *argv[]) {
     int gd = DETECT,gm;
     int i ,k ;
     struct point p1 , p2 ,p3 ;
@@ -16,19 +15,37 @@ int main(void) {
     initgraph(&gd, &gm, "");
     center.x = getmaxy() / 2 ;
     center.y = getmaxy() / 2 ;
+    if (argc > 2) {
+        srand(atoi(argv[2]));
+        p1.x = rand_int(1,getmaxy());
+        p1.y = rand_int(1,getmaxy());
+
+        p2.x = rand_int(1,getmaxy());
+        p2.y = rand_int(1,getmaxy());
+
+        p3.x = rand_int(1,getmaxy());
+        p3.y = rand_int(1,getmaxy());
+
+    }
+    else {
+        srand(time(NULL));
+
+        p1.x = center.x ;
+        p1.y = center.y + OFFSET ;
+
+        p2.x = center.x - OFFSET ;
+        p2.y = center.y - OFFSET ;
+
+        p3.x = center.x + OFFSET ;
+        p3.y = center.y - OFFSET ;
+
+    }
 
     struct point start ;
-    p1.x = center.x ;
-    p1.y = center.y + OFFSET ;
 
-    p2.x = center.x - OFFSET ;
-    p2.y = center.y - OFFSET ;
-
-    p3.x = center.x + OFFSET ;
-    p3.y = center.y - OFFSET ;
 
     /* Print triangle */
-//    putpixel(center.x,center.y,GREEN);
+
     putpixel(p1.x,p1.y,RED);
     putpixel(p2.x,p2.y,RED);
     putpixel(p3.x,p3.y,RED);
