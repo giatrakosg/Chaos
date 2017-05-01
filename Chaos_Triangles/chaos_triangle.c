@@ -13,19 +13,13 @@ int main(int argc ,char *argv[]) {
     struct point p1 , p2 ,p3 ;
     struct point center ;
     initgraph(&gd, &gm, "");
-    center.x = getmaxy() / 2 ;
+    center.x = getmaxx() / 2 ;
     center.y = getmaxy() / 2 ;
     if (argc > 2) {
         srand(atoi(argv[2]));
-        p1.x = rand_int(1,getmaxy());
-        p1.y = rand_int(1,getmaxy());
-
-        p2.x = rand_int(1,getmaxy());
-        p2.y = rand_int(1,getmaxy());
-
-        p3.x = rand_int(1,getmaxy());
-        p3.y = rand_int(1,getmaxy());
-
+        init_point(&p1,getmaxx(),getmaxy());
+        init_point(&p2,getmaxx(),getmaxy());
+        init_point(&p3,getmaxx(),getmaxy());
     }
     else {
         srand(time(NULL));

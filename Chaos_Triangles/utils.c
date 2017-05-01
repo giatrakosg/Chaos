@@ -96,3 +96,7 @@ void get_trace(struct point *t,struct point p1,struct point p2,struct point p3) 
     t->y = (yr.l * t->x) + yr.b ;
 
 }
+void init_point(struct point *a,int xmax,int ymax) {
+    a->x = rand_int(1,xmax);
+    a->y = rand_int(1,ymax);
+}
