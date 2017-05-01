@@ -58,10 +58,6 @@ int main(int argc ,char *argv[]) {
     get_trace(&start,p1,p2,p3);
     putpixel(start.x,start.y,GREEN);
 
-    //line(p1.x,p1.y,p2.x,p2.y);
-    //line(p1.x,p1.y,p3.x,p3.y);
-    //line(p2.x,p2.y,p3.x,p3.y);
-
 
     for (i = 0; i < MAX_LOOPS; i++) {
         k = rand_int(0,2) ;
