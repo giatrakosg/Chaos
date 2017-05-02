@@ -21,5 +21,6 @@ void get_yintercept(struct line *,struct point ) ;
 void get_slope(struct line *,struct point ,struct point ) ;
 void get_trace(struct point *,struct point ,struct point ,struct point );
 void init_point(struct point *,int ,int );
+void init_r_triangle(struct point *,struct point *,struct point *);
 
 #endif

@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <graphics.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -96,7 +97,21 @@ void get_trace(struct point *t,struct point p1,struct point p2,struct point p3) 
     t->y = (yr.l * t->x) + yr.b ;
 
 }
-void init_point(struct point *a,int xmax,int ymax) {
+void init_point(struct point *a,int xmax,int ymax) { /* Initialize point */
     a->x = rand_int(1,xmax);
     a->y = rand_int(1,ymax);
+}
+void init_r_triangle(struct point *p1,struct point *p2,struct point *p3) { /* Initialize random triangle */
+    struct line y ;
+
+    init_point(p1,getmaxx(),getmaxy());
+    init_point(p2,getmaxx(),getmaxy());
+    init_point(p3,getmaxx(),getmaxy());
+
+    get_slope(&y,*p1,*p2);
+    get_yintercept(&y,*p1);
+
+    if( (y.l * p3->x + y.b) == p3->y) {
+        init_r_triangle(p1,p2,p3);
+    }
 }

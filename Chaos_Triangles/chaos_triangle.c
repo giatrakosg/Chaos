@@ -28,9 +28,7 @@ int main(int argc ,char *argv[]) {
 
     if (argc > 2) {
         srand(atoi(argv[2]));
-        init_point(&p1,getmaxx(),getmaxy());
-        init_point(&p2,getmaxx(),getmaxy());
-        init_point(&p3,getmaxx(),getmaxy());
+        init_r_triangle(&p1,&p2,&p3);
     }
     else {
         srand(time(NULL));
