@@ -115,7 +115,9 @@ void init_r_triangle(struct point *p1,struct point *p2,struct point *p3) { /* In
         init_r_triangle(p1,p2,p3);
     }
 }
+
 /*void init_shape(struct point *mat,int size,int xmax,int ymax) {
+
     int i ;
     for ( i = 0; i < size; i++) {
         init_point(&mat[i],xmax,ymax);
@@ -168,8 +170,31 @@ void init_shape(struct point *a,int size,struct point center,struct point *trace
         a[3].y = center.y + OFFSET ;
 
         a[4].x = center.x ;
-        a[4].y = center.y - OFFSET - OFFSET / 4;
-
+        a[4].y = center.y - OFFSET - 50;
+        *trace = center ;
     }
+
+}
+int min_4(int a,int b,int c,int d) {
+    int mat[4] = {a , b ,c ,d} ;
+    int i ;
+    int min = mat[0] ;
+    for ( i = 1; i < 4; i++) {
+        if (mat[i] < min) {
+            min = mat[i] ;
+        }
+    }
+    return min ;
+}
+int max_4(int a ,int b,int c,int d ) {
+    int mat[4] = {a , b ,c ,d} ;
+    int i ;
+    int max = mat[0] ;
+    for ( i = 1; i < 4; i++) {
+        if (mat[i] < max) {
+            max = mat[i] ;
+        }
+    }
+    return max ;
 
 }

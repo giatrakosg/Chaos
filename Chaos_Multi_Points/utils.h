@@ -23,6 +23,8 @@ void get_trace(struct point *,struct point ,struct point ,struct point );
 void init_point(struct point *,int ,int );
 void init_r_triangle(struct point *,struct point *,struct point *);
 void print_shape(struct point *,int ) ;
-void init_shape(struct point *,int ,struct point ,int );
+int max_4(int ,int ,int ,int );
+int min_4(int ,int ,int ,int );
+void init_shape(struct point *,int ,struct point ,struct point *,int );
 
 #endif

@@ -5,8 +5,8 @@
 #include "utils.h"
 #include <time.h>
 
-#define MAX_LOOPS 30000
-#define OFFSET 200
+#define MAX_LOOPS 50000
+#define OFFSET 100
 #define SIM_TIME 15 /* Time in seconds that the simulation will appear on screen */
 
 int main(int argc ,char *argv[]) {
@@ -32,7 +32,7 @@ int main(int argc ,char *argv[]) {
     center.x = getmaxx() / 2 ;
     center.y = getmaxy() / 2 ;
 
-    init_shape(mat,points,center,OFFSET);
+    init_shape(mat,points,center,&trace,OFFSET);
     print_shape(mat,points);
 
     for (i = 0; i < MAX_LOOPS; i++) {
