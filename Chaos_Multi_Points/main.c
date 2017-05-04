@@ -12,7 +12,7 @@
 int main(int argc ,char *argv[]) {
 
     struct point center ;
-
+    struct point trace ;
 /*    const int TIME_PER_LOOP = (SIM_TIME * 10000000) / (MAX_LOOPS / 100) ;
     struct timespec req;
     req.tv_nsec = TIME_PER_LOOP ;
@@ -33,6 +33,10 @@ int main(int argc ,char *argv[]) {
     center.x = getmaxx() / 2 ;
     center.y = getmaxy() / 2 ;
     circle(center.x,center.y,100);
+    for (i = 0; i < MAX_LOOPS; i++) {
+        k = rand_int(0,points - 1);
+        get_middle(&trace,&mat[k]);
+    }
 
     getchar();
     closegraph();
