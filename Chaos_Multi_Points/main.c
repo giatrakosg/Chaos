@@ -5,7 +5,7 @@
 #include "utils.h"
 #include <time.h>
 
-#define MAX_LOOPS 50000
+#define MAX_LOOPS 30000
 #define OFFSET 100
 #define SIM_TIME 15 /* Time in seconds that the simulation will appear on screen */
 
@@ -34,11 +34,13 @@ int main(int argc ,char *argv[]) {
 
     init_shape(mat,points,center,&trace,OFFSET);
     print_shape(mat,points);
-
+    printf("OK...\n" );
+    getchar();
     for (i = 0; i < MAX_LOOPS; i++) {
         k = rand_int(0,points - 1);
         get_middle(&trace,mat[k]);
         putpixel(trace.x,trace.y,BLUE);
+
     }
 
     getchar();

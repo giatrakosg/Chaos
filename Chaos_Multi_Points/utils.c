@@ -170,7 +170,7 @@ void init_shape(struct point *a,int size,struct point center,struct point *trace
         a[3].y = center.y + OFFSET ;
 
         a[4].x = center.x ;
-        a[4].y = center.y - OFFSET - 50;
+        a[4].y = center.y - ((7/4.0) * OFFSET) ;
         *trace = center ;
     }
 
@@ -196,5 +196,10 @@ int max_4(int a ,int b,int c,int d ) {
         }
     }
     return max ;
+
+}
+void rules(struct point *mat,struct point *trace,int size,int mode) {
+    /* Mode 0 is default move towards middle */
+    /* Mode 1 is can't go to previous direction */
 
 }
