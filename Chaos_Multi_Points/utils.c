@@ -59,7 +59,7 @@ void get_slope(struct line *y,struct point a,struct point b) {
 void get_yintercept(struct line *y,struct point a) {
     y->b = a.y - (y->l * a.x) ;
 }
-void get_trace(struct point *t,struct point p1,struct point p2,struct point p3) {
+void get_trace_triangle(struct point *t,struct point p1,struct point p2,struct point p3) {
     /* Returns value within triangle */
     struct line y12 ;
     struct line y13 ;
@@ -116,13 +116,7 @@ void init_r_triangle(struct point *p1,struct point *p2,struct point *p3) { /* In
     }
 }
 
-/*void init_shape(struct point *mat,int size,int xmax,int ymax) {
 
-    int i ;
-    for ( i = 0; i < size; i++) {
-        init_point(&mat[i],xmax,ymax);
-    }
-}*/
 void print_shape(struct point *mat,int size) {
     int i ;
     for (i = 0; i <size; i++) {
@@ -139,7 +133,7 @@ void init_shape(struct point *a,int size,struct point center,struct point *trace
 
         a[2].x = center.x ;
         a[2].y = center.y + OFFSET ;
-        get_trace(trace,a[0],a[1],a[2]);
+        get_trace_triangle(trace,a[0],a[1],a[2]);
     }
     else if(size == 4) {
         a[0].x = center.x - OFFSET ;
@@ -198,8 +192,23 @@ int max_4(int a ,int b,int c,int d ) {
     return max ;
 
 }
-void rules(struct point *mat,struct point *trace,int size,int mode) {
+int rules(struct point *mat,struct point *trace,int size,int mode,int prev) {
     /* Mode 0 is default move towards middle */
     /* Mode 1 is can't go to previous direction */
-
+    int k ;
+    if (mode == 0) {
+        k = rand_int(0,size - 1);
+        get_middle(trace,mat[k]);
+        return 0 ;
+    }
+    if (mode == 1) {
+        k = rand_int(0,size - 1);
+        while(k == prev) {
+            k = rand_int(0,size - 1);
+        }
+        prev = k ;
+        get_middle(trace,mat[k]);
+        return prev ;
+    }
+    return 1 ;
 }

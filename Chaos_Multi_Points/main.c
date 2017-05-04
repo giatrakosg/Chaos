@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <graphics.h>
 #include <unistd.h>
+#include <assert.h>
 #include "utils.h"
 #include <time.h>
 
@@ -18,13 +19,14 @@ int main(int argc ,char *argv[]) {
     req.tv_nsec = TIME_PER_LOOP ;
     req.tv_sec = 0 ;
 */
-    int points ;
+    int points ,select = 0;
 
     printf("Give number of points \n" );
     scanf("%d",&points );
-
+    printf("Choose mode (0 or 1)\n");
+    scanf("%d",&select );
     struct point mat[points];
-    int k ,i ;
+    int i ,prev = 0;
 
     int gd = DETECT,gm;
     initgraph(&gd, &gm, "");
@@ -37,8 +39,8 @@ int main(int argc ,char *argv[]) {
     printf("OK...\n" );
     getchar();
     for (i = 0; i < MAX_LOOPS; i++) {
-        k = rand_int(0,points - 1);
-        get_middle(&trace,mat[k]);
+        prev = rules(mat,&trace,points,select,prev);
+        assert(!(prev && !select));
         putpixel(trace.x,trace.y,BLUE);
 
     }
