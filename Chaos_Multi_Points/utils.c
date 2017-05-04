@@ -115,17 +115,57 @@ void init_r_triangle(struct point *p1,struct point *p2,struct point *p3) { /* In
         init_r_triangle(p1,p2,p3);
     }
 }
-void init_shape(struct point *mat,int size,int xmax,int ymax) {
+/*void init_shape(struct point *mat,int size,int xmax,int ymax) {
     int i ;
     for ( i = 0; i < size; i++) {
         init_point(&mat[i],xmax,ymax);
     }
-}
+}*/
 void print_shape(struct point *mat,int size) {
     int i ;
     for (i = 0; i <size; i++) {
         putpixel(mat[i].x,mat[i].y,RED);
     }
+}
+void init_shape(struct point *a,int size,struct point center,int OFFSET){
+    if(size == 3) {
+        a[0].x = center.x - OFFSET ;
+        a[0].y = center.y - OFFSET ;
 
+        a[1].x = center.x + OFFSET ;
+        a[1].y = center.y - OFFSET ;
+
+        a[2].x = center.x ;
+        a[2].y = center.y + OFFSET ;
+    }
+    else if(size == 4) {
+        a[0].x = center.x - OFFSET ;
+        a[0].y = center.y - OFFSET ;
+
+        a[1].x = center.x + OFFSET ;
+        a[1].y = center.y - OFFSET ;
+
+        a[2].x = center.x - OFFSET;
+        a[2].y = center.y + OFFSET ;
+
+        a[3].x = center.x + OFFSET;
+        a[3].y = center.y + OFFSET ;
+    }
+    else if(size == 5) {
+        a[0].x = center.x - OFFSET ;
+        a[0].y = center.y - OFFSET ;
+
+        a[1].x = center.x + OFFSET ;
+        a[1].y = center.y - OFFSET ;
+
+        a[2].x = center.x - OFFSET;
+        a[2].y = center.y + OFFSET ;
+
+        a[3].x = center.x + OFFSET;
+        a[3].y = center.y + OFFSET ;
+
+        a[4].x = center.x ;
+        a[4].y = center.y ;
+    }
 
 }

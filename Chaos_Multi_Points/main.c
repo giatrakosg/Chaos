@@ -22,20 +22,23 @@ int main(int argc ,char *argv[]) {
 
     printf("Give number of points \n" );
     scanf("%d",&points );
-    struct point mat[points];
 
+    struct point mat[points];
+    int k ,i ;
 
     int gd = DETECT,gm;
     initgraph(&gd, &gm, "");
 
-    init_shape(mat,points,getmaxx(),getmaxy());
-    print_shape(mat,points);
     center.x = getmaxx() / 2 ;
     center.y = getmaxy() / 2 ;
-    circle(center.x,center.y,100);
+
+    init_shape(mat,points,center,OFFSET);
+    print_shape(mat,points);
+
     for (i = 0; i < MAX_LOOPS; i++) {
         k = rand_int(0,points - 1);
-        get_middle(&trace,&mat[k]);
+        get_middle(&trace,mat[k]);
+        putpixel(trace.x,trace.y,BLUE);
     }
 
     getchar();
