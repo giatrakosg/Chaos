@@ -127,7 +127,7 @@ void print_shape(struct point *mat,int size) {
         putpixel(mat[i].x,mat[i].y,RED);
     }
 }
-void init_shape(struct point *a,int size,struct point center,int OFFSET){
+void init_shape(struct point *a,int size,struct point center,struct point *trace,int OFFSET){
     if(size == 3) {
         a[0].x = center.x - OFFSET ;
         a[0].y = center.y - OFFSET ;
@@ -137,6 +137,7 @@ void init_shape(struct point *a,int size,struct point center,int OFFSET){
 
         a[2].x = center.x ;
         a[2].y = center.y + OFFSET ;
+        get_trace(trace,a[0],a[1],a[2]);
     }
     else if(size == 4) {
         a[0].x = center.x - OFFSET ;
@@ -150,6 +151,8 @@ void init_shape(struct point *a,int size,struct point center,int OFFSET){
 
         a[3].x = center.x + OFFSET;
         a[3].y = center.y + OFFSET ;
+        trace->x = rand_int(min_4(a[0].x,a[1].x,a[2].x,a[3].x),max_4(a[0].x,a[1].x,a[2].x,a[3].x));
+        trace->y = rand_int(min_4(a[0].y,a[1].y,a[2].y,a[3].y),max_4(a[0].y,a[1].y,a[2].y,a[3].y));
     }
     else if(size == 5) {
         a[0].x = center.x - OFFSET ;
@@ -165,7 +168,8 @@ void init_shape(struct point *a,int size,struct point center,int OFFSET){
         a[3].y = center.y + OFFSET ;
 
         a[4].x = center.x ;
-        a[4].y = center.y ;
+        a[4].y = center.y - OFFSET - OFFSET / 4;
+
     }
 
 }
