@@ -3,11 +3,12 @@
 #include <graphics.h>
 #include <unistd.h>
 #include <assert.h>
-#include "utils.h"
 #include <time.h>
+#include "utils.h"
 
 #define MAX_LOOPS 30000
 #define SIM_TIME 15 /* Time in seconds that the simulation will appear on screen */
+#define OFFSET 100
 
 int main(int argc ,char *argv[]) {
 
@@ -27,7 +28,7 @@ int main(int argc ,char *argv[]) {
 
     int gd = DETECT,gm;
     initgraph(&gd, &gm, "");
-
+    setbkcolor(15);
     struct point mat[points];
     int i ,prev = 0;
     struct point center ;
@@ -38,16 +39,16 @@ int main(int argc ,char *argv[]) {
 
     init_shape(mat,points,center,&trace,OFFSET);
     print_shape(mat,points);
-    printf("OK...\n" );
+    outtext("OK...");
     getchar();
     for (i = 0; i < MAX_LOOPS; i++) {
         prev = rules(mat,&trace,points,select,prev);
         assert(!(prev && !select));
-        putpixel(trace.x,trace.y,BLUE);
+        putpixel(trace.x,trace.y,RED);
         nanosleep(&req,NULL);
     }
 
-    printf("Finished \n" );
+    outtext("Finished");
     getchar();
 
     closegraph();

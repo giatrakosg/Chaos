@@ -1,7 +1,6 @@
 #ifndef __UTILS__
 #define __UTILS__
 
-#define OFFSET 100
 
 struct point {
     int x ;
