@@ -21,6 +21,10 @@ int main(int argc ,char *argv[]) {
     printf("Choose time (in seconds) that programm lasts \n" );
     scanf("%d",&elap_time);
 
+    if (points < 3) {
+        printf("Sorry there must be at least 2 points \n" );
+        return 1 ;
+    }
     const int TIME_PER_LOOP = (elap_time * 10000000) / (MAX_LOOPS / 100) ;
     struct timespec req;
     req.tv_nsec = TIME_PER_LOOP ;
@@ -39,7 +43,7 @@ int main(int argc ,char *argv[]) {
 
     init_shape(mat,points,center,&trace,OFFSET);
     print_shape(mat,points);
-    outtext("OK...");
+    outtext("OK..\n");
     getchar();
     for (i = 0; i < MAX_LOOPS; i++) {
         prev = rules(mat,&trace,points,select,prev);
