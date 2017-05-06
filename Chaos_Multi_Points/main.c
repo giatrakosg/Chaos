@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <time.h>
 #include "utils.h"
+#include "geometry.h"
 
 #define MAX_LOOPS 30000
 #define SIM_TIME 15 /* Time in seconds that the simulation will appear on screen */
