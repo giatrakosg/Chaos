@@ -5,7 +5,11 @@
 
 #include "geometry.h"
 #include "utils.h"
+void get_r(struct point *t,struct point a,float r) {
+    t->x = min_2(t->x,a.x) + (r * (max_2(t->x,a.x) - min_2(t->x,a.x)));
+    t->y = min_2(t->y,a.y) + (r * (max_2(t->y,a.y) - min_2(t->y,a.y)));
 
+}
 void get_middle(struct point *t,struct point a) {
     t->x = (a.x + t->x) / 2 ;
     t->y = (a.y + t->y) / 2 ;
@@ -106,13 +110,13 @@ void init_shape(struct point *a,int size,struct point center,struct point *trace
     }
 
 }
-int rules(struct point *mat,struct point *trace,int size,int mode,int prev) {
+int rules(struct point *mat,struct point *trace,int size,int mode,int prev,float r) {
     /* Mode 0 is default move towards middle */
     /* Mode 1 is can't go to previous direction */
     int k ;
     if (mode == 0) {
         k = rand_int(0,size - 1);
-        get_middle(trace,mat[k]);
+        get_r(trace,mat[k],r);
         return 0 ;
     }
     if (mode == 1) {
@@ -121,7 +125,7 @@ int rules(struct point *mat,struct point *trace,int size,int mode,int prev) {
             k = rand_int(0,size - 1);
         }
         prev = k ;
-        get_middle(trace,mat[k]);
+        get_r(trace,mat[k],r);
         return prev ;
     }
     return 1 ;

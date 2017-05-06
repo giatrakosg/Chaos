@@ -15,10 +15,13 @@ int main(int argc ,char *argv[]) {
 
     srand(time(NULL));
     int points ,select = 0,elap_time;
+    double r ;
     printf("Give number of points \n" );
     scanf("%d",&points );
     printf("Choose mode (0 or 1)\n");
     scanf("%d",&select );
+    printf("Choose how far it moves \n");
+    scanf("%f\n",&r );
     printf("Choose time (in seconds) that programm lasts \n" );
     scanf("%d",&elap_time);
 
@@ -48,7 +51,7 @@ int main(int argc ,char *argv[]) {
     outtext("OK..\n");
     getchar();
     for (i = 0; i < MAX_LOOPS; i++) {
-        prev = rules(mat,&trace,points,select,prev);
+        prev = rules(mat,&trace,points,select,prev,r);
         assert(!(prev && !select));
         putpixel(trace.x,trace.y,RED);
         nanosleep(&req,NULL);
