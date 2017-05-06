@@ -13,7 +13,7 @@
 
 int main(int argc ,char *argv[]) {
 
-
+    srand(time(NULL));
     int points ,select = 0,elap_time;
     printf("Give number of points \n" );
     scanf("%d",&points );
@@ -43,6 +43,7 @@ int main(int argc ,char *argv[]) {
     center.y = getmaxy() / 2 ;
 
     init_shape(mat,points,center,&trace,OFFSET);
+    putpixel(trace.x,trace.y,BLUE);
     print_shape(mat,points);
     outtext("OK..\n");
     getchar();

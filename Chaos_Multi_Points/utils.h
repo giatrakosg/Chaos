@@ -1,6 +1,6 @@
 #ifndef __UTILS__
 #define __UTILS__
-
+#include "geometry.h"
 int max_2(int ,int );
 int min_2(int ,int );
 int min3(int ,int ,int );

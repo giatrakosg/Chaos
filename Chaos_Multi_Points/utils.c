@@ -79,7 +79,7 @@ void print_shape(struct point *mat,int size) {
 void fy_shuff(struct point *a,int length) {
     int i ,k ;
     for (i = 0; i < length - 1; i++) {
-        k = rand_int(0,((length - 1 - i) + 1));
+        k = rand_int(0,length - 1 - i);
         swap_points(&a[i],&a[k + i]);
     }
 }

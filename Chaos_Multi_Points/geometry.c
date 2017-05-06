@@ -89,7 +89,7 @@ void init_shape(struct point *a,int size,struct point center,struct point *trace
         a[1].x = center.x + offset ;
         a[1].y = center.y - offset ;
 
-        a[2].x = center.x - offset;
+        a[2].x = center.x - offset - 10 ;
         a[2].y = center.y + offset ;
 
         a[3].x = center.x + offset;
