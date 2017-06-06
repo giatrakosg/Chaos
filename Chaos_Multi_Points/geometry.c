@@ -15,25 +15,29 @@ void get_middle(struct point *t,struct point a) {
     t->y = (a.y + t->y) / 2 ;
 
 }
-void get_slope(struct line *y,struct point a,struct point b) {
-        y->l = ((a.y - b.y) / (a.x - b.x)) ;
+void get_parameters(struct line *y,struct point a,struct point b) {
+    if(a.x == b.x) {
+        y->B = 1 ;
+        y->A = 0 ;
+        y->C = -a.x ;
+    }
+    else {
+        y->A = 1 ;
+        y->B = -(((double) a.y - b.y) / (a.x - b.x));
+        y->C = -a.y - (y->B * a.x) ;
+    }
+
 }
-void get_yintercept(struct line *y,struct point a) {
-    y->b = a.y - (y->l * a.x) ;
-}
+
 void get_trace_triangle(struct point *t,struct point p1,struct point p2,struct point p3) {
     /* Returns value within triangle */
     struct line y12 ;
     struct line y13 ;
     struct line y23 ;
 
-    get_slope(&y12,p1,p2);
-    get_slope(&y13,p1,p3);
-    get_slope(&y23,p2,p3);
-
-    get_yintercept(&y12,p1);
-    get_yintercept(&y13,p3);
-    get_yintercept(&y23,p2);
+    get_parameters(&y12,p1,p2);
+    get_parameters(&y13,p1,p3);
+    get_parameters(&y23,p2,p3);
 
     /* Choose a random point in y12 and a random point in y23 */
     /* Create line between them */
@@ -41,22 +45,35 @@ void get_trace_triangle(struct point *t,struct point p1,struct point p2,struct p
     /* Calculate y of x in the line above */
     /* Return the values */
 
-    struct point r1 ;
-    struct point r2 ;
+    struct point r1 ; /* part of y12 */
+    if(y12.A == 0) {
+        r1.x = -(y12.C);
+        r1.y = rand_int(min_2(p1.y,p2.y),max_2(p1.y,p2.y));
+    }
+    else {
+        r1.x = rand_int(min_2(p1.x,p2.x),max_2(p1.x,p2.x));
+        r1.y = -y12.C - (y12.B * r1.x) ;
+    }
+    struct point r2 ; /* part of y23 */
+    if(y23.A == 0) {
+        r2.x = -(y23.C);
+        r2.y = rand_int(min_2(p3.y,p2.y),max_2(p3.y,p2.y));
+    }
+    else {
+        r2.x = rand_int(min_2(p3.x,p2.x),max_2(p3.x,p2.x));
+        r2.y = -y23.C - (y23.B * r2.x);
+    }
+     struct line yr ;
+     get_parameters(&yr,r1,r2);
 
-    r1.x = rand_int(min_2(p1.x,p2.x),max_2(p1.x,p2.x));
-    r1.y = (y12.l * r1.x) + y12.b ;
-
-    r2.x = rand_int(min_2(p2.x,p3.x),max_2(p2.x,p3.x));
-    r2.y = (y23.l * r2.x) + y23.b ;
-
-
-    struct line yr ;
-    get_slope(&yr,r1,r2);
-    get_yintercept(&yr,r1);
-
-    t->x = rand_int(min_2(r1.x,r2.x),max_2(r1.x,r2.x));
-    t->y = (yr.l * t->x) + yr.b ;
+    if(yr.A == 0) {
+        t->x = -(yr.C);
+        t->y = rand_int(min_2(r1.y,r2.y),max_2(r1.y,r1.y));
+    }
+    else {
+        t->x = rand_int(min_2(r1.x,r2.x),max_2(r1.x,r2.x));
+        t->y = -yr.C - (yr.B * t->x);
+    }
 
 }
 void init_shape(struct point *a,int size,struct point center,struct point *trace,int offset){
@@ -72,19 +89,20 @@ void init_shape(struct point *a,int size,struct point center,struct point *trace
         get_trace_triangle(trace,a[0],a[1],a[2]);
     }
     else if(size == 4) {
-        a[0].x = center.x - offset ;
+        a[0].x = center.x ;
         a[0].y = center.y - offset ;
 
-        a[1].x = center.x + offset ;
-        a[1].y = center.y - offset ;
+        a[1].x = center.x - offset ;
+        a[1].y = center.y ;
 
-        a[2].x = center.x - offset;
+        a[2].x = center.x ;
         a[2].y = center.y + offset ;
 
-        a[3].x = center.x + offset;
-        a[3].y = center.y + offset ;
-        trace->x = rand_int(min_4(a[0].x,a[1].x,a[2].x,a[3].x),max_4(a[0].x,a[1].x,a[2].x,a[3].x));
-        trace->y = rand_int(min_4(a[0].y,a[1].y,a[2].y,a[3].y),max_4(a[0].y,a[1].y,a[2].y,a[3].y));
+        a[3].x = center.x + offset ;
+        a[3].y = center.y ;
+
+        fy_shuff(a,4);
+        get_trace_triangle(trace,a[0],a[1],a[2]);
     }
     else if(size == 5) {
         a[0].x = center.x - offset ;

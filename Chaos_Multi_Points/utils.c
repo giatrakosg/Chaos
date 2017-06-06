@@ -63,10 +63,9 @@ void init_r_triangle(struct point *p1,struct point *p2,struct point *p3) { /* In
     init_point(p2,getmaxx(),getmaxy());
     init_point(p3,getmaxx(),getmaxy());
 
-    get_slope(&y,*p1,*p2);
-    get_yintercept(&y,*p1);
+    get_parameters(&y,*p1,*p2);
 
-    if( (y.l * p3->x + y.b) == p3->y) {
+    if( (y.A * p3->y) + (y.B * p3->x) + y.C == 0) {
         init_r_triangle(p1,p2,p3);
     }
 }

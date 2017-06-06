@@ -6,9 +6,10 @@ struct point {
     int y ;
 };
 
-struct line {
-    double l ;
-    int b ;
+struct line { /* Ay + Bx + C = 0 */
+    double A ;
+    double B ;
+    double C ;
 };
 void get_middle(struct point *,struct point );
 void get_yintercept(struct line *,struct point ) ;
