@@ -1,5 +1,5 @@
 # Triangle Game
- The game this programm simulates works as follows.
+ The game this program simulates works as follows.
  Given three points 
  
  1.Choose a point within the triangle they form.
